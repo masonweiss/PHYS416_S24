@@ -5,6 +5,8 @@ _final project for PHYS416 - Computational Physics_
 
 * A spherical system with radial symmetry is considered, and a cylindrical system with symmetry in the radial and longtudinal directions is also analyzed.
 
+* sphere.py and cylinder.py contain the two main scripts for the program and can be run independently
+
 * Phase plots of neutron density as a function of time and location on a grid mesh are generated to understand the behavior under different boundary conditions.
 
 * The average neutron density as a function of time is plotted to consider the approximate criticality of the system, under unique boundary conditions. 
