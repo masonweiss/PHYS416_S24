@@ -163,20 +163,23 @@ if(animate_mov):
     fig = plt.figure(2)
     ax = plt.axes(projection='3d')
     plt.grid(True)
-    fig.colorbar(surf, shrink=0.5, aspect=5)
+    surf_i = ax.plot_surface(rr, zz, nnmovplot[0, :, :], rstride=1, cstride=1, cmap=cm.jet, linewidth=0, vmin=0,
+                             vmax=np.max(nnmovplot), antialiased=False)
 
     def update(n):
         ax.clear()
-        surf = ax.plot_surface(rr, zz, nnmovplot[n, :, :], rstride=1, cstride=1, cmap=cm.jet, linewidth=0, antialiased=False)
+        surf = ax.plot_surface(rr, zz, nnmovplot[n, :, :], rstride=1, cstride=1, cmap=cm.jet, linewidth=0, vmin=0, vmax=np.max(nnmovplot), antialiased=False)
         ax.set_xlabel('radius r (m)')
         ax.set_ylabel('height z (m)')
         ax.set_zlabel('n(r, z, t)')
         ax.set_zlim([0, np.max(nnmovplot)])
         ax.set_ylim([0, Z])
         ax.set_xlim([0, R])
+        surf.set_clim(vmin=0, vmax=np.max(nnmovplot))
         plt.suptitle(f'Neutron Diffusion for a Cylinder, r={round(R,5)}, z={round(Z,5)}')
         plt.title(f'time: {round(tmovplot[n], 10)} (ns)', fontsize=10)
 
+    fig.colorbar(surf_i, shrink=0.5, aspect=5)
     plt.rcParams['animation.ffmpeg_path'] = '/usr/local/bin/ffmpeg'
     anim = animation.FuncAnimation(fig, update, frames=int(num_plot), interval=speed*np.max(tplot)/num_plot)
     fig.suptitle('Neutron Diffusion', fontsize=14)
